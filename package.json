@@ -18,6 +18,7 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
+    "back_library": "file:",
     "express": "^5.1.0"
   }
 }
