@@ -1,4 +1,5 @@
 import express,{Request, Response} from 'express';
+import { title } from 'process';
 const app = express();
 const PORT = 3000;
 
@@ -6,8 +7,18 @@ app.get('/',(req: Request, res: Response) =>{
     res.send('Welcom to My Library!');
 })
 
-app.get('/books',(req: Request, res: Response) =>{
-    res.json(books);
+// app.get('/books',(req: Request, res: Response) =>{
+//     res.json(books);
+// })//ใส่router 2 ครั้ง จะ run router 1 ไม่run router 2
+
+app.get("/books",(req,res)=>{
+    if(req.query.title){
+    const title = req.query.title;
+    const FilteredBooks = books.filter((book) => book.title === title);
+    res.json(FilteredBooks);
+    }else{
+        res.json(books);
+    }
 })
 
 app.listen(PORT ,()=>{
