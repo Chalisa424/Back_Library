@@ -1,5 +1,4 @@
 import express,{Request, Response} from 'express';
-import { title } from 'process';
 const app = express();
 const PORT = 3000;
 
@@ -13,8 +12,8 @@ app.get('/',(req: Request, res: Response) =>{
 
 app.get("/books",(req,res)=>{
     if(req.query.title){
-    const title = req.query.title;
-    const FilteredBooks = books.filter((book) => book.title === title);
+    const title = req.query.title as string; //ต้องระบุเพราะ typescript มองว่า books.filter อาจมีค่าเป็น string, array ของ string หรือ undefined ได้
+    const FilteredBooks = books.filter((book) => book.title.startsWith(title));//คือจะสามารถใส่ query ชื่อ title ขึ้นต้นได้
     res.json(FilteredBooks);
     }else{
         res.json(books);
